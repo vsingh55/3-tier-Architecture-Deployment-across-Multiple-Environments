@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# update ubuntu
+sudo apt-get update
+sudo -i
+# update NPM (Node Package Manager)
+echo "[info] insatlling npm"
+
+# Set up and install NVM
+export NVM_DIR="/opt/nodejs/.nvm"
+sudo mkdir -p "$NVM_DIR"
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | NVM_DIR="$NVM_DIR" bash
+# Source nvm script to load it into the current session
+source "$NVM_DIR/nvm.sh"
+# Install Node.js using NVM (Node Version Manager)
+nvm install 21
+# Post-install verification
+echo "Node version:"
+node -v
+echo "NPM version:"
+npm -v
+
+# download and install Node.js
+echo "[info] insatlling Node.js"
+nvm install 21
+echo "[info] insatlled Node.js"
+
+# verifies the right Node.js version is in the environment
+node -v
+# verifies the right NPM version is in the environment
+npm -v
+
+cd ~
+cd /opt
+git clone https://github.com/vsingh55/YelpCamp-Deploy-Trio-Local-Container-Azure.git
+cd YelpCamp-Deploy-Trio-Local-Container-Azure
+git pull
+cd src
+npm install
+cat >/opt/YelpCamp-Deploy-Trio-Local-Container-Azure/src/.env <<EOF
+    CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+    CLOUDINARY_KEY=${CLOUDINARY_KEY}
+    CLOUDINARY_SECRET=${CLOUDINARY_SECRET}
+    MAPBOX_TOKEN=${MAPBOX_TOKEN}
+    DB_URL=${DB_URL}
+    SECRET=${SECRET}
+EOF
+
+cd ..
+
+#Follow the steps after SSH to VM:
+1. run [ ls /opt/ ] & make sure git cloned 
+2. if git cloned then run: cd /opt/YelpCamp-Deploy-Trio-Local-Container-Azure/ 
+3. now you need to run following cmd:  
+export NVM_DIR="/opt/nodejs/.nvm" && source "$NVM_DIR/nvm.sh"
+4. Verify is npm installed by running npm-v
+5. run cd src
+6. run npm start
+7. there should be database connected message on terminal thats it.
+
+8. Access Application at http://VM_PublicIP:3000/

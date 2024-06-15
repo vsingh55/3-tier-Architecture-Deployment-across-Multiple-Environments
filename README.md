@@ -1,9 +1,9 @@
-# YelpCamp-Deploy-Trio-Local-Container-Azure
-YelpCamp Deploy Trio is a comprehensive DevOps project demonstrating the deployment of the YelpCamp application across various environments. The project includes setting up a three-tier deployment process covering local, containerized, and Azure Kubernetes Service (AKS) environments.
+# 3-tier-Architecture-Deployment-across-Multiple-Environments
+This is a comprehensive DevOps project demonstrating the deployment of the YelpCamp(3-tier architecture) application across various environments. The project includes setting up a three-tier deployment process covering local, containerized, and Azure Kubernetes Service (AKS) environments.
 
 ## Introduction
 
-YelpCamp is a full-stack web application designed for campground reviews. YelpCamp Deploy Trio project focuses on setting up a robust deployment pipeline for YelpCamp, ensuring reliability, scalability, and maintainability across different environments. 
+YelpCamp is a full-stack web application designed for campground reviews. This project focuses on setting up a robust deployment pipeline for YelpCamp, ensuring reliability, scalability, and maintainability across different environments.
 
 ## Features
 
@@ -23,7 +23,7 @@ YelpCamp is a full-stack web application designed for campground reviews. YelpCa
 
 ## Real-World Scenario
 
-YelpCamp Deploy Trio project simulates real-world deployment scenarios, providing a comprehensive solution for deploying web applications across various environments. What sets this project apart is its focus on:
+This project simulates real-world deployment scenarios, providing a comprehensive solution for deploying web applications across various environments. What sets this project apart is its focus on:
 
 - **Comprehensive Testing:** Integration of testing, code analysis, and vulnerability scanning in the deployment pipeline ensures high-quality deployments.
 - **Scalability:** Utilizing Azure AKS for deployment enables seamless scaling of the application based on demand.
@@ -33,7 +33,7 @@ YelpCamp Deploy Trio project simulates real-world deployment scenarios, providin
 
 ## Skills Gained
 
-By working on the YelpCamp Deploy Trio project, you will gain valuable experience in:
+By working on the this project, you will gain valuable experience in:
 
 - Setting up CI/CD pipelines using Jenkins.
 - Containerizing applications with Docker.
@@ -43,7 +43,7 @@ By working on the YelpCamp Deploy Trio project, you will gain valuable experienc
 
 ## Contribution
 
-Contributions to the YelpCamp Deploy Trio project are **Welcome!** If you encounter any issues or have suggestions for improvement, feel free to open an issue or submit a pull request.
+Contributions to the this project are **Welcome!** If you encounter any issues or have suggestions for improvement, feel free to open an issue or submit a pull request.
 
 ## License
 

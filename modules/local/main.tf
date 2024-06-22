@@ -36,7 +36,7 @@ data "azurerm_public_ip" "pip_data" {
   for_each            = var.vm_map
   name                = azurerm_public_ip.pip_vm[each.key].name
   resource_group_name = azurerm_resource_group.rg.name
-  depends_on = [ azurerm_public_ip.pip_vm ]
+  depends_on          = [azurerm_public_ip.pip_vm]
 }
 
 # Create network security group
@@ -81,7 +81,7 @@ resource "azurerm_network_interface" "nic" {
     name                          = each.value.ip_configuration_name
     subnet_id                     = azurerm_subnet.subnet.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id = azurerm_public_ip.pip_vm[each.key].id
+    public_ip_address_id          = azurerm_public_ip.pip_vm[each.key].id
   }
   depends_on = [azurerm_virtual_network.vnet, azurerm_subnet.subnet]
 }
@@ -89,12 +89,12 @@ resource "azurerm_network_interface" "nic" {
 # Create local data input to change within userdata file
 locals {
   data_inputs = {
-    CLOUDINARY_CLOUD_NAME=var.CLOUDINARY_CLOUD_NAME
-    CLOUDINARY_KEY=var.CLOUDINARY_KEY
-    CLOUDINARY_SECRET=var.CLOUDINARY_SECRET
-    MAPBOX_TOKEN=var.MAPBOX_TOKEN
-    DB_URL=var.DB_URL
-    SECRET=var.SECRET
+    CLOUDINARY_CLOUD_NAME = var.CLOUDINARY_CLOUD_NAME
+    CLOUDINARY_KEY        = var.CLOUDINARY_KEY
+    CLOUDINARY_SECRET     = var.CLOUDINARY_SECRET
+    MAPBOX_TOKEN          = var.MAPBOX_TOKEN
+    DB_URL                = var.DB_URL
+    SECRET                = var.SECRET
   }
 }
 
@@ -106,7 +106,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   resource_group_name   = azurerm_resource_group.rg.name
   size                  = each.value.vm_size
   admin_username        = "adminuser"
-  user_data = base64encode(templatefile("local.tftpl", local.data_inputs))
+  user_data             = base64encode(templatefile("local.tftpl", local.data_inputs))
   network_interface_ids = [azurerm_network_interface.nic[each.key].id] // associate nic
   depends_on            = [azurerm_network_interface.nic]
 
@@ -129,7 +129,7 @@ resource "azurerm_linux_virtual_machine" "vm" {
   }
 
   tags = {
-    env = "loacal"
+    env     = "loacal"
     UsedFor = "testing"
   }
 }

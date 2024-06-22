@@ -126,3 +126,31 @@ variable "inbound_rules" {
     }
   ]
 }
+
+# Create environment variables
+# Cloudinary: For storing images in the database.
+
+# Mapbox Token: For linking campground locations on the map.
+variable "CLOUDINARY_CLOUD_NAME" {
+  description = "Its the value provided by cloudinary."   
+  type = string
+}
+
+variable "CLOUDINARY_KEY" {
+  description = "cloudinary variable"
+  type = string
+}
+variable "CLOUDINARY_SECRET" {
+  type = string
+}
+variable "MAPBOX_TOKEN" {
+  type = string
+}
+variable "DB_URL" {
+  description = "It can be get from cloud provider as you setup your account. I am using MongoDB Atlas. "
+  type = string
+}
+variable "SECRET" {
+  description = "anything you want"
+  type = string
+}

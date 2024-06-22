@@ -32,17 +32,17 @@ npm -v
 
 cd ~
 cd /opt
-git clone https://github.com/vsingh55/YelpCamp-Deploy-Trio-Local-Container-Azure.git
-cd YelpCamp-Deploy-Trio-Local-Container-Azure
+git clone https://github.com/vsingh55/3-tier-Architecture-Deployment-across-Multiple-Environments.git
+cd 3-tier-Architecture-Deployment-across-Multiple-Environments
 git pull
 cd src
 npm install
-cat >/opt/YelpCamp-Deploy-Trio-Local-Container-Azure/src/.env <<EOF
+cat >/opt/3-tier-Architecture-Deployment-across-Multiple-Environments/src/.env <<EOF
     CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
     CLOUDINARY_KEY=${CLOUDINARY_KEY}
     CLOUDINARY_SECRET=${CLOUDINARY_SECRET}
     MAPBOX_TOKEN=${MAPBOX_TOKEN}
-    DB_URL=${DB_URL}
+    DB_URL="${DB_URL}"
     SECRET=${SECRET}
 EOF
 
@@ -50,7 +50,7 @@ cd ..
 
 #Follow the steps after SSH to VM:
 1. run [ ls /opt/ ] & make sure git cloned 
-2. if git cloned then run: cd /opt/YelpCamp-Deploy-Trio-Local-Container-Azure/ 
+2. if git cloned then run: cd /opt/3-tier-Architecture-Deployment-across-Multiple-Environments/
 3. now you need to run following cmd:  
 export NVM_DIR="/opt/nodejs/.nvm" && source "$NVM_DIR/nvm.sh"
 4. Verify is npm installed by running npm-v

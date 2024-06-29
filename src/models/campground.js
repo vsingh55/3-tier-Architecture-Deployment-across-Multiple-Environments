@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Review = require('./review')
 const Schema = mongoose.Schema;
+const { cloudinary } = require("../cloudinary");
 
 
 // https://res.cloudinary.com/douqbebwk/image/upload/w_300/v1600113904/YelpCamp/gxgle1ovzd2f3dgcpass.png
@@ -11,6 +12,10 @@ const ImageSchema = new Schema({
 });
 
 ImageSchema.virtual('thumbnail').get(function () {
+    return this.url.replace('/upload', '/upload/w_200');
+});
+
+ImageSchema.virtual('standardSize').get(function () {
     return this.url.replace('/upload', '/upload/w_200');
 });
 
@@ -53,9 +58,13 @@ CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
 });
 
 
-
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
+
+
     if (doc) {
+        for (let image of doc.images) {
+            await cloudinary.uploader.destroy(image.filename);
+        }
         await Review.deleteMany({
             _id: {
                 $in: doc.reviews

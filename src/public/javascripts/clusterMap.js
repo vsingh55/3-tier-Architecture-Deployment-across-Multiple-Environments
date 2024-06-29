@@ -1,3 +1,5 @@
+// this file is modificated ver from https://docs.mapbox.com/mapbox-gl-js/example/cluster/ 
+
 mapboxgl.accessToken = mapToken;
 const map = new mapboxgl.Map({
     container: 'cluster-map',
@@ -7,8 +9,6 @@ const map = new mapboxgl.Map({
 });
 
 map.addControl(new mapboxgl.NavigationControl());
-
-
 
 
 map.on('load', function () {

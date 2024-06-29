@@ -32,8 +32,18 @@ module.exports.login = (req, res) => {
 }
 
 module.exports.logout = (req, res) => {
+    console.log("activvate logout");
     req.logout();
     // req.session.destroy();
     req.flash('success', "Goodbye!");
     res.redirect('/campgrounds');
+    // req.logout(function (err) {
+    //     if (err) {
+    //         return next(err);
+    //     }
+    //     req.flash('success', 'Goodbye!');
+    //     res.redirect('/campgrounds');
+    // });
+
+    console.log("activvate logout end");
 }

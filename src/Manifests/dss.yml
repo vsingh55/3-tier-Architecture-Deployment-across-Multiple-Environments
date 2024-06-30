@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: yelp-camp-container
-        image: vsingh55/campProd:latest
+        image: vsingh55/campprod:latest
         ports:
         - containerPort: 3000
         env:

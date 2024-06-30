@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: webapps  # Define the namespace where this role will be effective
+  name: jenkins-role  # Name of the role
+rules:
+- apiGroups: [""]  # "" indicates the core API group
+  resources: ["pods", "services", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch", "create", "delete", "patch", "update"]
+- apiGroups: ["apps"]  # For resources under the apps API group
+  resources: ["deployments", "replicasets", "statefulsets"]
+  verbs: ["get", "list", "watch", "create", "delete", "patch", "update"]
+- apiGroups: ["batch"]  # For jobs and cronjobs
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "watch", "create", "delete", "patch", "update"]

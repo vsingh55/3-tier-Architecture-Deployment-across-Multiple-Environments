@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-rolebinding  # Name of the rolebinding
+  namespace: webapps  # Namespace where the rolebinding is effective
+subjects:
+- kind: ServiceAccount  # Type of subject to bind to the role
+  name: jenkins  # Name of the ServiceAccount
+  namespace: webapps  # Namespace of the ServiceAccount
+roleRef:
+  kind: Role  # Type of role being referenced
+  name: jenkins-role  # Name of the role being bound
+  apiGroup: rbac.authorization.k8s.io  # API group of the role

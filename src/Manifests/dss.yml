@@ -17,6 +17,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: yelp-camp-deployment
+  namespace: webapps
 spec:
   replicas: 1
   selector:
@@ -28,62 +29,63 @@ spec:
         app: yelp-camp
     spec:
       containers:
-        - name: yelp-camp-container
-          image: vsingh55/camp:latest
-          ports:
-            - containerPort: 3000
-          env:
-            - name: CLOUDINARY_CLOUD_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: yelp-camp-secrets
-                  key: CLOUDINARY_CLOUD_NAME
-            - name: CLOUDINARY_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: yelp-camp-secrets
-                  key: CLOUDINARY_KEY
-            - name: CLOUDINARY_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: yelp-camp-secrets
-                  key: CLOUDINARY_SECRET
-            - name: MAPBOX_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: yelp-camp-secrets
-                  key: MAPBOX_TOKEN
-            - name: DB_URL
-              valueFrom:
-                secretKeyRef:
-                  name: yelp-camp-secrets
-                  key: DB_URL
-            - name: SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: yelp-camp-secrets
-                  key: SECRET
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            initialDelaySeconds: 30   # Adjust the initial delay here
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 3000
-            initialDelaySeconds: 30   # Adjust the initial delay here
+      - name: yelp-camp-container
+        image: vsingh55/campProd:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: CLOUDINARY_CLOUD_NAME
+          valueFrom:
+            secretKeyRef:
+              name: yelp-camp-secrets
+              key: CLOUDINARY_CLOUD_NAME
+        - name: CLOUDINARY_KEY
+          valueFrom:
+            secretKeyRef:
+              name: yelp-camp-secrets
+              key: CLOUDINARY_KEY
+        - name: CLOUDINARY_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: yelp-camp-secrets
+              key: CLOUDINARY_SECRET
+        - name: MAPBOX_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: yelp-camp-secrets
+              key: MAPBOX_TOKEN
+        - name: DB_URL
+          valueFrom:
+            secretKeyRef:
+              name: yelp-camp-secrets
+              key: DB_URL
+        - name: SECRET
+          valueFrom:
+            secretKeyRef:
+              name: yelp-camp-secrets
+              key: SECRET
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 30
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: yelp-camp-service
+  namespace: webapps
 spec:
   selector:
     app: yelp-camp
   ports:
-    - protocol: TCP
-      port: 3000
-      targetPort: 3000
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
   type: LoadBalancer

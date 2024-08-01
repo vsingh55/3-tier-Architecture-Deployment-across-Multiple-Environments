@@ -4,7 +4,6 @@ if (process.env.NODE_ENV !== "production") {
 const middleware = require('./middleware');
 middleware(app);
 app.use('/campgrounds', require('./routes/campgrounds'));
-const port = process.env.PORT || 3000;
 
 
 const express = require('express');

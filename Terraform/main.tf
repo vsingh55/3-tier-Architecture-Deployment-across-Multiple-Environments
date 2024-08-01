@@ -8,7 +8,12 @@ terraform {
 
 provider "azurerm" {
   # Configuration options
-  features {}
+  features {
+    key_vault {
+      purge_soft_delete_on_destroy    = true
+      recover_soft_deleted_key_vaults = true
+    }
+  }
 }
 
 terraform {
@@ -88,16 +93,6 @@ module "network" {
   ]
 }
 
-module "bastion" {
-  source = "./modules/bastion"
-  project = var.project
-  env = var.env
-  location = var.location
-  rg_name = module.resourcegroup.rg_name
-  vnet_name = module.network.vnet_name
-
-  depends_on = [ module.network ]
-}
 
 module "compute" {
   source         = "./modules/compute"
@@ -111,21 +106,35 @@ module "compute" {
   # Constructing dynamic names
   nic_map = { for k, v in var.nic_map :
     k => {
-      nic_name       = "${v.base_nic_name}-${var.purpose}-${var.project}-${var.env}"
-      ip_config_name = "${v.base_ip_config_name}-${var.purpose}-${var.project}-${var.env}"
+      nic_name       = "${v.base_nic_name}-${k}-${var.project}-${var.env}"
+      ip_config_name = "${v.base_ip_config_name}-${k}-${var.project}-${var.env}"
+      pip_name       = "${v.base_pip_name}-${k}-${var.project}-${var.env}"
     }
   }
 
   vm_map = { for k, v in var.vm_map :
     k => {
-      vm_name            = "${v.base_vm_name}-${var.purpose}-${var.project}-${var.env}"
-      ip_name            = "${v.base_ip_name}-${var.purpose}-${var.project}-${var.env}"
+      vm_name            = "${v.base_vm_name}-${k}-${var.project}-${var.env}"
+      ip_name            = "${v.base_ip_name}-${k}-${var.project}-${var.env}"
       vm_size            = v.vm_size
-      os_disk            = "${v.base_os_disk_name}-${var.purpose}-${var.project}-${var.env}"
+      os_disk            = "${v.base_os_disk_name}-${k}-${var.project}-${var.env}"
       admin_ssh_key_user = v.admin_ssh_key_user
       custom_data_script = v.custom_data_script
     }
   }
 
   depends_on = [ module.resourcegroup, module.network, module.keyvault ]
+}
+
+module "aks" {
+  source = "./modules/aks"
+  project = var.project
+  env = var.env
+  rg_name = module.resourcegroup.rg_name
+  aks_location = var.aks_location
+  client_id           = module.ServicePrincipal.client_id
+  client_secret       = module.ServicePrincipal.client_secret
+  ssh_public_key      = module.keyvault.ssh_public_key
+  service_principal_name = module.ServicePrincipal.spn_name
+
 }

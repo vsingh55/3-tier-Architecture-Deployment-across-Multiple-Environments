@@ -1,8 +1,7 @@
 env             = "prod"
-purpose         = "production"
 location        = "centralindia"
 spn             = "SPN"
-subscription_id = "value" // Replace with your actual subscription ID
+subscription_id = "adc11db4-778a-419e-958f-479833cfb23f" // Replace with your actual subscription ID
 
 vnet_cidr   = ["10.0.0.0/16"]
 subnet_cidr = ["10.0.1.0/24"]
@@ -13,18 +12,23 @@ ssh_public_key_path = "~/.ssh/id_rsa.pub"
 ssh_private_key_name = "sshkey-pvt-prod"
 ssh_private_key_path = "~/.ssh/id_rsa"
 
+aks_location = "australiaeast"
+
 
 # Define NIC configurations following Azure naming conventions
 nic_map = {
   "jenkins" = {
     base_nic_name        = "nic"
-    base_ip_config_name  = "ip-nic-jenkins"
+    base_ip_config_name  = "ip-nic"
+    base_pip_name        = "pip"
   },
   "sonarqube" = {
     base_nic_name        = "nic"
-    base_ip_config_name  = "ip-nic-sonarqube"
+    base_ip_config_name  = "ip-nic"
+    base_pip_name        = "pip"
   }
 }
+
 
 # Define VM configurations following Azure naming conventions
 vm_map = {
@@ -46,6 +50,8 @@ vm_map = {
   }
 }
 
+
+# NSG inbound rules
 inbound_rules = [
   {
     name                       = "allow-ssh"

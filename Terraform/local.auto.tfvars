@@ -13,7 +13,6 @@ ssh_public_key_path = "~/.ssh/id_rsa.pub"
 ssh_private_key_name = "sshkey-pvt-local"
 ssh_private_key_path = "~/.ssh/id_rsa"
 
-purpose = "Testing"
 
 # Define NIC configurations following Azure naming conventions
 nic_map = {
@@ -25,7 +24,7 @@ nic_map = {
 
 # Define VM configurations following Azure naming conventions
 vm_map = {
-  "vm1" = {
+  "local" = {
     base_vm_name = "vm"
     base_ip_name = "ip"
     vm_size            = "Standard_B2s"  //Standard_B2s free

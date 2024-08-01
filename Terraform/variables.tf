@@ -43,10 +43,6 @@ variable "subnet_cidr" {
   description = "define subnet cidr range"
   type        = list(string)
 }
-variable "purpose" {
-  description = "Purpose of compute instance"
-  type = string
-}
 
 variable "inbound_rules" {
   description = "List of inbound rules for NSG"
@@ -66,6 +62,7 @@ variable "nic_map" {
   type = map(object({
     base_nic_name       = string
     base_ip_config_name = string
+    base_pip_name       = string
   }))
   
 }
@@ -83,6 +80,13 @@ variable "vm_map" {
   }))
   
 }
+
+# Define the location of aks
+variable "aks_location" {
+  description = "Specifies the location for provisioning the AKS cluster, addressing resource constraints in the Azure free subscription."
+  type        = string
+}
+
 
 
 

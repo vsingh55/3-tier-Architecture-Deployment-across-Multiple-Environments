@@ -14,6 +14,8 @@ output "resource_group_name" {
   value = module.resourcegroup.rg_name
 }
 
-
-
+output "K8s_config" {
+    value = module.aks.kube_config_raw      
+    sensitive = true
+}
 

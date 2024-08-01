@@ -16,6 +16,7 @@ variable "nic_map" {
   type = map(object({
     nic_name              = string
     ip_config_name = string
+    pip_name       = string
   }))
   
 }

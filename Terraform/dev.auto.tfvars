@@ -1,5 +1,4 @@
 env             = "dev"
-purpose         = "development"
 location        = "centralindia"
 spn             = "SPN"
 subscription_id = "value" // Replace with your actual subscription ID

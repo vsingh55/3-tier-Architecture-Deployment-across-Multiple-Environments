@@ -1,0 +1,111 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'node22'
+    }
+
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/vsingh55/3-tier-Architecture-Deployment-across-Multiple-Environments.git'
+            }
+        }
+        
+        stage('Install Package Dependencies') {
+            steps {
+                dir('src') {
+                    sh 'npm install'
+                }
+            }
+        }
+        
+        stage('Unit Test') {
+            steps {
+                dir('src') {
+                    sh 'npm test'
+                }
+            }
+        }
+        
+        stage('Trivy FS Scan') {
+            steps {
+                dir('src') {
+                    sh 'trivy fs --format table -o fs-report.html .'
+                }
+            }
+        }
+        
+        stage('SonarQube') {
+            steps {
+                dir('src') {
+                    withSonarQubeEnv("sonar") {
+                        sh "\$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Campground -Dsonar.projectName=Campground"
+                    }
+                }
+            }
+        }
+        
+        stage('Docker Build & Tag') {
+            steps {
+                script {
+                    dir('src') {
+                        withDockerRegistry(credentialsId: 'docker-crd', toolName: 'docker') {
+                            sh "docker build -t vsingh55/camp:latest ."
+                        }
+                    }
+                } 
+            }
+        }
+        
+        stage('Trivy Image Scan') {
+            steps {
+                sh 'trivy image --format table -o image-report.html vsingh55/camp:latest'
+            }
+        }
+        
+        stage('Docker Push Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-crd', toolName: 'docker') {
+                        sh "docker push vsingh55/camp:latest"
+                    }
+                }
+            }
+        }
+        
+        stage('Docker Deploy To DEV Env') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-crd', toolName: 'docker') {
+                        sh "docker run -d -p 3000:3000 vsingh55/camp:latest"
+                    }
+                }
+            }
+        }
+
+        stage('Verify Deployment') {
+            steps {
+                script {
+                    try {
+                        def containerId = sh(script: 'docker ps -q --filter ancestor=vsingh55/camp:latest', returnStdout: true).trim()
+                        if (containerId) {
+                            echo "Container ID: ${containerId}"
+                            sh "docker logs ${containerId}"
+                        } else {
+                            error "No running container found for image vsingh55/camp:latest"
+                        }
+                    } catch (Exception e) {
+                        echo "Error during verification: ${e.getMessage()}"
+                        sh 'docker ps -a'
+                        error "Verification stage failed"
+                    }
+                }
+            }
+        }
+    }
+}

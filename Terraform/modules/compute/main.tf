@@ -8,10 +8,18 @@ resource "azurerm_network_interface" "nic" {
     name                          = each.value.ip_config_name              
     subnet_id                     = var.subnet_id
     private_ip_address_allocation = "Dynamic"
-    
+    public_ip_address_id = azurerm_public_ip.pip[each.key].id
   }
 }
 
+# Create public IP for each VM
+resource "azurerm_public_ip" "pip" {
+  for_each            = var.nic_map
+  name                = each.value.pip_name
+  location            = var.location
+  resource_group_name = var.rg_name
+  allocation_method   = "Dynamic"
+}
 
 # Create linux virtual machine 
 resource "azurerm_linux_virtual_machine" "vm" {
@@ -47,6 +55,5 @@ resource "azurerm_linux_virtual_machine" "vm" {
 
   tags = {
     "env"     = var.env
-    purrpose = "testing"
   }
 }

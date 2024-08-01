@@ -1,0 +1,92 @@
+pipeline {
+    agent any
+
+    tools {
+        nodejs 'node21'
+    }
+
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+
+    stages {
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/vsingh55/3-tier-Architecture-Deployment-across-Multiple-Environments.git'
+            }
+        }
+        
+        stage('Install Package Dependencies') {
+            steps {
+                dir('src') {
+                    sh 'npm install'
+                }
+            }
+        }
+        
+        stage('Unit Test') {
+            steps {
+                dir('src') {
+                    sh 'npm test'
+                }
+            }
+        }
+        
+        stage('Trivy FS Scan') {
+            steps {
+                dir('src') {
+                    sh 'trivy fs --format table -o fs-report.html .'
+                }
+            }
+        }
+        
+        stage('SonarQube') {
+            steps {
+                dir('src') {
+                    withSonarQubeEnv("sonar") {
+                        sh "\$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Campground -Dsonar.projectName=Campground"
+                    }
+                }
+            }
+        }
+        
+        stage('Docker Build & Tag') {
+            steps {
+                script {
+                    dir('src') {
+                        withDockerRegistry(credentialsId: 'docker-crd', toolName: 'docker') {
+                            sh "docker build -t vsingh55/campprod:latest ."
+                        }
+                    }
+                } 
+            }
+        }
+        
+        stage('Trivy Image Scan') {
+            steps {
+                sh 'trivy image --format table -o image-report.html vsingh55/campprod:latest'
+            }
+        }
+        
+        stage('Docker Push Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-crd', toolName: 'docker') {
+                        sh "docker push vsingh55/campprod:latest"
+                    }
+                }
+            }
+        }
+        
+        stage('Deploy to AKS Cluster') {
+            steps {
+                dir('src') {
+                    withCredentials([file(credentialsId: 'k8-secret', variable: 'KUBECONFIG')]) {
+                        sh "kubectl apply -f Manifests/dss.yml -n webapps"
+                        sh "kubectl apply -f Manifests/svc.yml -n webapps"
+                    }
+                }
+            }
+        }
+    }
+}

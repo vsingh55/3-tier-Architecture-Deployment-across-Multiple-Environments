@@ -1,6 +1,11 @@
 if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
+const middleware = require('./middleware');
+middleware(app);
+app.use('/campgrounds', require('./routes/campgrounds'));
+const port = process.env.PORT || 3000;
+
 
 const express = require('express');
 const path = require('path');

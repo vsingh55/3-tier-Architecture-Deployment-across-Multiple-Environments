@@ -58,3 +58,13 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.user || null; // or however you determine the logged-in user
     next();
 });
+
+// middleware.js
+module.exports = (app) => {
+    // Your middleware logic here
+    app.use((req, res, next) => {
+      // Middleware logic
+      next();
+    });
+  };
+  

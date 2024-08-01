@@ -52,3 +52,9 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     }
     next();
 }
+
+// middleware.js
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user || null; // or however you determine the logged-in user
+    next();
+});

@@ -11,6 +11,10 @@ YelpCamp is a full-stack web application designed for campground reviews. This p
 - **Container Deployment:** Utilizes Docker containers for development and testing, incorporating Jenkins pipelines for automated builds, tests, and scans.
 - **Azure AKS Deployment:** Automates deployment to Azure Kubernetes Service (AKS) for production-level environments, ensuring seamless scalability and reliability.
 
+## Architecture
+![3-tier-deployment drawio (1)](https://github.com/user-attachments/assets/57e04ae0-7179-481f-a0fb-632e85f8d6c1)
+
+
 ## Project Structure
 > **src** contains source code of yelpcamp including Dockerfile, Manifests file.
 

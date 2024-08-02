@@ -92,7 +92,7 @@ YelpCamp is a full-stack web application designed for campground reviews. This p
 
 2. **Remove Unused Resources.**
 
-For detailed instructions, please refer to [this blog post](https://blogs.vijaysingh.cloud/deploy-trio).
+## For detailed instructions, please refer to [this blog post](https://blogs.vijaysingh.cloud/deploy-trio).
 
 ---
 

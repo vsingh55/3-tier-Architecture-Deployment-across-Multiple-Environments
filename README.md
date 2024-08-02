@@ -4,6 +4,11 @@ This is a comprehensive DevOps project demonstrating the deployment of the YelpC
 ## Introduction
 
 YelpCamp is a full-stack web application designed for campground reviews. This project focuses on setting up a robust deployment pipeline for YelpCamp, ensuring reliability, scalability, and maintainability across different environments.
+![113733448-1a3ac300-9718-11eb-9fc7-defb8d2cd9c1](https://github.com/user-attachments/assets/f680a1a0-c119-4e86-a961-ba0844673076)
+![113733438-173fd280-9718-11eb-8a0d-8e13f1ab3d45](https://github.com/user-attachments/assets/846c0d1e-e36d-4325-ad32-596e81813486)
+![113733465-1e66e080-9718-11eb-9ffe-8b047640942a](https://github.com/user-attachments/assets/7dce0b1e-3b14-4a82-99b2-4869184d2686)
+![113734300-d8f6e300-9718-11eb-801e-5cb4698a1560](https://github.com/user-attachments/assets/ab182441-becf-48f2-a5f1-411f557985a3)
+
 
 ## Features
 

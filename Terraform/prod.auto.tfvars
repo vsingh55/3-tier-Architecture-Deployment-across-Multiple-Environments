@@ -1,7 +1,7 @@
 env             = "prod"
 location        = "centralindia"
 spn             = "SPN"
-subscription_id = "adc11db4-778a-419e-958f-479833cfb23f" // Replace with your actual subscription ID
+subscription_id = "value" // Replace with your actual subscription ID
 
 vnet_cidr   = ["10.0.0.0/16"]
 subnet_cidr = ["10.0.1.0/24"]

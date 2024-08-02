@@ -18,10 +18,12 @@ nic_map = {
   "jenkins" = {
     base_nic_name        = "nic"
     base_ip_config_name  = "ip-nic-jenkins"
+    base_pip_name        = "pip"
   },
   "sonarqube" = {
     base_nic_name        = "nic"
     base_ip_config_name  = "ip-nic-sonarqube"
+    base_pip_name        = "pip"
   }
 }
 

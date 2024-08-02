@@ -11,27 +11,88 @@ YelpCamp is a full-stack web application designed for campground reviews. This p
 - **Container Deployment:** Utilizes Docker containers for development and testing, incorporating Jenkins pipelines for automated builds, tests, and scans.
 - **Azure AKS Deployment:** Automates deployment to Azure Kubernetes Service (AKS) for production-level environments, ensuring seamless scalability and reliability.
 
+## Project Structure
+> **src** contains source code of yelpcamp including Dockerfile, Manifests file.
+
+> **Terraform** consist instrastructure modular code. 
+
+> **scripts** consist scripts to install tools on specific machine to reduce manual intervention.
+
 ## Tools and Technologies
 
 - **Docker:** Containerization platform used for packaging the application and its dependencies.
 - **Jenkins:** Automation server used for setting up continuous integration and continuous deployment (CI/CD) pipelines.
 - **GitHub:** Version control system used for managing project source code and collaboration.
 - **Terraform:** Infrastructure as code (IaC) tool used for provisioning and managing cloud infrastructure.
+  > Modularized Code  |  Utilized workspace 
 - **SonarQube:** Open-source platform for static code analysis to detect bugs, vulnerabilities, and code smells.
 - **Trivy:** Vulnerability scanner for containers and other artifacts, used for scanning Docker images.
-- **Azure Kubernetes Service (AKS):** Managed Kubernetes service provided by Microsoft Azure for deploying, scaling, and managing containerized applications.
 
-## Real-World Scenario
 
-This project simulates real-world deployment scenarios, providing a comprehensive solution for deploying web applications across various environments. What sets this project apart is its focus on:
+## Steps to Replicate the Project
 
-- **Comprehensive Testing:** Integration of testing, code analysis, and vulnerability scanning in the deployment pipeline ensures high-quality deployments.
-- **Scalability:** Utilizing Azure AKS for deployment enables seamless scaling of the application based on demand.
-- **End-to-End Automation:** The project automates the entire deployment process from code commit to production deployment, reducing manual errors and enhancing efficiency.
-- **Media Management:** Integration with Cloudinary to streamline media management and improve user experience by automatically delivering images and videos, enhanced and optimized for every user.
-- **Maps Integration:** Integration with Mapbox, a provider of custom online maps for websites and applications, enhancing the user experience with interactive maps.
+### 1. **Project Setup**
 
-## Skills Gained
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/vsingh55/3-tier-Architecture-Deployment-across-Multiple-Environments.git
+   cd 3-tier-Architecture-Deployment-across-Multiple-Environments
+   ```
+
+2. **Put the values of environment variable and change .auto.tfvars files.**
+
+### 2. **Infrastructure Provisioning**
+
+1. **Install Required Tools:**
+   - Terraform
+   - kubectl
+   - Azure CLI
+
+2. **Initialize and Apply Terraform:**
+   ```bash
+   cd Terraform
+   terraform init
+   terraform workspace new dev
+   terraform workspace select dev
+   terraform apply -var-file=dev.auto.tfvars
+   ```
+
+### 3. **Set Up Jenkins Pipeline**
+
+1. **Install Jenkins and Necessary Plugins.**
+
+2. **Add Credentials for Docker Hub, SonarQube, and Kubernetes in Jenkins.**
+
+3. **Create Jenkins Pipeline Job:**
+   - Use the `Jenkinsfile` from the repository.
+
+### 4. **Application Deployment**
+
+1. **Prepare Kubernetes Manifests in the `Manifests` directory.**
+
+2. **Create Namespace in AKS:**
+   ```bash
+   kubectl create namespace webapps
+   ```
+
+3. **Run Jenkins Pipeline to Deploy Docker Image to AKS.**
+
+
+
+### 8. **Cleanup**
+
+1. **Destroy Infrastructure:**
+   ```bash
+   terraform destroy -var-file=<name_of_environment>.auto.tfvars
+   ```
+
+2. **Remove Unused Resources.**
+
+For detailed instructions, please refer to [this blog post](https://blogs.vijaysingh.cloud/deploy-trio).
+
+---
+
+<!-- ## Skills Gained
 
 By working on the this project, you will gain valuable experience in:
 
@@ -39,7 +100,7 @@ By working on the this project, you will gain valuable experience in:
 - Containerizing applications with Docker.
 - Conducting static code analysis and vulnerability scanning.
 - Deploying applications to Azure Kubernetes Service (AKS).
-- Infrastructure as code (IaC) using Terraform.
+- Infrastructure as code (IaC) using Terraform. -->
 
 ## Contribution
 
@@ -55,4 +116,4 @@ This project is licensed under the [MIT License](LICENSE).
 - Special thanks to the contributors and maintainers of the tools and technologies used in this project.
 - Media management provided by **Cloudinary**.
 - Maps integration provided by **Mapbox**.
-```
+---

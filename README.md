@@ -111,13 +111,14 @@ By working on the this project, you will gain valuable experience in:
 - Deploying applications to Azure Kubernetes Service (AKS).
 - Infrastructure as code (IaC) using Terraform. -->
 
+
+## Blog 🖥️
+
+Check out the Blog below for detailed desscription of this project: [click here](https://blogs.vijaysingh.cloud/deploy-trio)
+
 ## Contribution
 
 Contributions to the this project are **Welcome!** If you encounter any issues or have suggestions for improvement, feel free to open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 

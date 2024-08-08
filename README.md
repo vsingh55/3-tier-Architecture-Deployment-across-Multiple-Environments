@@ -68,7 +68,8 @@ YelpCamp is a full-stack web application designed for campground reviews. This p
 
 ### 3. **Set Up Jenkins Pipeline**
 
-1. **Install Jenkins and Necessary Plugins.**
+1. **Install Jenkins and Necessary Plugins.** 
+( May Refer the [Blog](https://blogs.vijaysingh.cloud/unlocking-jenkins) )
 
 2. **Add Credentials for Docker Hub, SonarQube, and Kubernetes in Jenkins.**
 
@@ -97,7 +98,6 @@ YelpCamp is a full-stack web application designed for campground reviews. This p
 
 2. **Remove Unused Resources.**
 
-## For detailed instructions, please refer to [this blog post](https://blogs.vijaysingh.cloud/deploy-trio).
 
 ---
 
@@ -114,7 +114,7 @@ By working on the this project, you will gain valuable experience in:
 
 ## Blog 🖥️
 
-Check out the Blog below for detailed desscription of this project: [click here](https://blogs.vijaysingh.cloud/deploy-trio)
+Check out the Blog below for detailed desscription of this project: [**click here**](https://blogs.vijaysingh.cloud/deploy-trio)
 
 ## Contribution
 

@@ -36,7 +36,7 @@ YelpCamp is a full-stack web application designed for campground reviews. This p
   > Modularized Code  |  Utilized workspace 
 - **SonarQube:** Open-source platform for static code analysis to detect bugs, vulnerabilities, and code smells.
 - **Trivy:** Vulnerability scanner for containers and other artifacts, used for scanning Docker images.
-<p align="left">
+> <p align="left">
   <a>
     <img src="https://skillicons.dev/icons?i=azure,terraform,docker,kubernetes,jenkins,mongodb,nodejs,git,github,bash&theme=dark" width="800" height="500"/>
   </a>

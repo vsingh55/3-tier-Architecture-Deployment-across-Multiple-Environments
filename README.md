@@ -38,6 +38,13 @@ YelpCamp is a full-stack web application designed for campground reviews. This p
 - **Trivy:** Vulnerability scanner for containers and other artifacts, used for scanning Docker images.
 
 
+
+<p align="left">
+  <a>
+    <img src="https://skillicons.dev/icons?i=azure,terraform,docker,kubernetes,jenkins,mongodb,nodejs,git,github,bash&theme=dark" width="800" height="500"/>
+  </a>
+</p>
+
 ## Steps to Replicate the Project
 
 ### 1. **Project Setup**
